@@ -55,7 +55,28 @@ def vzvkassa():
             kassa = event.message.get('text')
             write_message(sender, "Взводная касса: " + kassa)
             return 0
-
+def valuta():
+    response = requests.get('https://belarusbank.by/api/kursExchange?city=Старые Дороги').text
+    data = json.loads(response)
+    kursnazv = {
+        1: 'Покупка банком: 1$ - ',
+        2: 'Продажа банком: 1$ - ',
+        3: 'Покупка банком: 100 RUB - ',
+        4: 'Продажа банком: 100 RUB - ',
+        5: 'Покупка банком: 1 EUR - ',
+        6: 'Продажа банком: 1 EUR - '
+    }
+    kurs = {
+        1: data[0]['USD_in'],
+        2: data[0]['USD_out'],
+        3: data[0]['RUB_in'],
+        4: data[0]['RUB_out'],
+        5: data[0]['EUR_in'],
+        6: data[0]['EUR_out']
+    }
+    write_message(sender, 'Согласно курса Беларусбанка:')
+    for i in kursnazv:
+        write_message(sender, kursnazv[i] + kurs[i] + ' BYN')
 
 def time():
     now = datetime.datetime.now()
@@ -100,6 +121,8 @@ for event in longpoll.listen():
             write_message(sender, random.choice(monetka_list))
         elif reseived_message == "ДМБ":
             time()
+        elif reseived_message == "Курс":
+            valuta()
         elif reseived_message == "Карты":
             write_message(sender,
                           'Карта для выпуска:\n6711 7700 1429 3364\n11/23\n\nКарта для взводной кассы:\n4255 1901 2325 2069\n06/23')
