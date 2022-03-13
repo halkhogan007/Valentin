@@ -110,7 +110,7 @@ for event in longpoll.listen():
             vpskkassa()
         elif reseived_message == "Выпускная касса":
             write_message(sender, "Собрано на выпуск: " + kassa1 + "$")
-        elif reseived_message == "@public207618594 Назначить человека":
+        elif reseived_message == "Назначить человека":
             write_message(sender, random.choice(vzvod_list))
         elif reseived_message == "Список взвода":
             write_message(sender, spisok_vzvoda)
