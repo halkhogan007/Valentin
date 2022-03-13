@@ -36,7 +36,8 @@ help_list = ['Команды для Валентиныча:\n1.Взводка - 
              '\n2.Выпускная касса - показывает сколько собрали на выпуск'
              '\n3.Назначить человека - выбирает случайного человека из всего списка взвода'
              '\n4.Список взвода - выводит список взвода\n5.Коронная фраза - ну тут итак все понятно'
-             '\n6.Монетка\n7.Карты - карточки для перевода\n8.ДМБ - показывает сколько осталось до выпуска']
+             '\n6.Монетка\n7.Карты - карточки для перевода\n8.ДМБ - показывает сколько осталось до выпуска'
+             '\n9.Курс- показывает актуальный курс валют.']
 
 
 def vpskkassa():
@@ -74,7 +75,6 @@ def valuta():
         5: data[0]['EUR_in'],
         6: data[0]['EUR_out']
     }
-    write_message(sender, 'Согласно курса Беларусбанка:')
     for i in kursnazv:
         write_message(sender, kursnazv[i] + kurs[i] + ' BYN')
 
@@ -91,8 +91,6 @@ current_date_time = datetime.datetime.now()
 current_time = current_date_time.time()
 if current_time == 0:
     time()
-else:
-    None
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW and event.from_chat and event.message.get('text') != "":
         reseived_message = event.message.get('text')
@@ -123,8 +121,8 @@ for event in longpoll.listen():
             time()
         elif reseived_message == "Курс":
             valuta()
+        elif reseived_message == "Обновление":
+            write_message(sender, 'Обновление 13.03.2022 - Были добавлены команды ДМБ И Курс. Также изменена автарка на более актуальную.')
         elif reseived_message == "Карты":
             write_message(sender,
                           'Карта для выпуска:\n6711 7700 1429 3364\n11/23\n\nКарта для взводной кассы:\n4255 1901 2325 2069\n06/23')
-        else:
-            None
