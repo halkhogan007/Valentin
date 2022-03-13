@@ -75,6 +75,7 @@ def valuta():
         5: data[0]['EUR_in'],
         6: data[0]['EUR_out']
     }
+    write_message(sender, "Согласно курсу Беларусбанка: ")
     for i in kursnazv:
         write_message(sender, kursnazv[i] + kurs[i] + ' BYN')
 
